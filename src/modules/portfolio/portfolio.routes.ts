@@ -1,0 +1,31 @@
+import { Router } from "express";
+
+import * as portfolioController
+from "./portfolio.controller";
+
+import validateRequest
+from "../../middlewares/validateRequest";
+
+import {
+  createPortfolioSchema,
+} from "./portfolio.validation";
+
+const router = Router();
+
+router.post(
+  "/portfolios",
+  validateRequest(createPortfolioSchema),
+  portfolioController.createPortfolio
+);
+
+router.get(
+  "/portfolios",
+  portfolioController.getPortfolios
+);
+
+router.get(
+  "/portfolios/:slug",
+  portfolioController.getPortfolioBySlug
+);
+
+export default router;
