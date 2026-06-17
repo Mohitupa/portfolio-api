@@ -126,10 +126,61 @@ const getPublicPortfolioBySlug = async (
   return content;
 };
 
+const publishPortfolioContent = async (
+  portfolioId: string
+) => {
+
+  const result =
+    await PortfolioContentModel.findOneAndUpdate(
+      { portfolioId },
+      {
+        isPublished: true,
+        publishedAt: new Date(),
+      },
+      {
+        new: true,
+      }
+    );
+
+  if (!result) {
+    throw new NotFoundException(
+      "Portfolio content not found"
+    );
+  }
+
+  return result;
+};
+
+const unpublishPortfolioContent = async (
+  portfolioId: string
+) => {
+
+  const result =
+    await PortfolioContentModel.findOneAndUpdate(
+      { portfolioId },
+      {
+        isPublished: false,
+      },
+      {
+        new: true,
+      }
+    );
+
+  if (!result) {
+    throw new NotFoundException(
+      "Portfolio content not found"
+    );
+  }
+
+  return result;
+};
+
 
 export const PortfolioContentService = {
   createPortfolioContent,
   getPortfolioContentByPortfolioId,
   updatePortfolioContent,
   getPublicPortfolioBySlug,
+  publishPortfolioContent,
+  unpublishPortfolioContent
 };

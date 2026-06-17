@@ -21,7 +21,7 @@ const createPortfolioContent = catchAsync(
 
 const getPortfolioContent = catchAsync(
   async (req, res) => {
-     const portfolioId = req.params.portfolioId as string;
+    const portfolioId = req.params.portfolioId as string;
 
     const result =
       await PortfolioContentService.getPortfolioContentByPortfolioId(
@@ -38,7 +38,7 @@ const getPortfolioContent = catchAsync(
 
 const updatePortfolioContent = catchAsync(
   async (req, res) => {
-     const portfolioId = req.params.portfolioId as string;
+    const portfolioId = req.params.portfolioId as string;
 
     const result =
       await PortfolioContentService.updatePortfolioContent(
@@ -74,10 +74,51 @@ const getPublicPortfolio = catchAsync(
   }
 );
 
+const publishPortfolioContent =
+  catchAsync(async (req, res) => {
+
+    const portfolioId =
+      req.params.portfolioId as string;
+
+    const result =
+      await PortfolioContentService
+        .publishPortfolioContent(
+          portfolioId
+        );
+
+    res.status(200).json({
+      success: true,
+      message:
+        "Portfolio published successfully",
+      data: result,
+    });
+  });
+
+const unpublishPortfolioContent =
+  catchAsync(async (req, res) => {
+
+    const portfolioId =
+      req.params.portfolioId as string;
+
+    const result =
+      await PortfolioContentService
+        .unpublishPortfolioContent(
+          portfolioId
+        );
+
+    res.status(200).json({
+      success: true,
+      message:
+        "Portfolio unpublished successfully",
+      data: result,
+    });
+  });
 
 export const PortfolioContentController = {
   createPortfolioContent,
   getPortfolioContent,
   updatePortfolioContent,
   getPublicPortfolio,
+  publishPortfolioContent,
+  unpublishPortfolioContent
 };

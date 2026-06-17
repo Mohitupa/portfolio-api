@@ -1,19 +1,21 @@
 import { Router } from "express";
 
 import * as portfolioController
-from "./portfolio.controller";
+  from "./portfolio.controller";
 
 import validateRequest
-from "../../middlewares/validateRequest";
+  from "../../middlewares/validateRequest";
 
 import {
   createPortfolioSchema,
 } from "./portfolio.validation";
+import { auth } from "../../middlewares/auth";
 
 const router = Router();
 
 router.post(
   "/portfolios",
+  auth("SUPER_ADMIN"),
   validateRequest(createPortfolioSchema),
   portfolioController.createPortfolio
 );
