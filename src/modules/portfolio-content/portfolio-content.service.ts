@@ -95,35 +95,53 @@ const updatePortfolioContent = async (
     return result;
 };
 
-const getPublicPortfolioBySlug = async (
-  slug: string
-) => {
-
-  const portfolio =
-    await Portfolio.findOne({
-      slug,
-      isActive: true,
-    });
+const getPublicPortfolioBySlug = async (slug: string) => {
+  const portfolio = await Portfolio.findOne({
+    slug,
+    isActive: true,
+  });
 
   if (!portfolio) {
-    throw new NotFoundException(
-      "Portfolio not found"
-    );
+    throw new NotFoundException("Portfolio not found");
   }
 
-  const content =
-    await PortfolioContentModel.findOne({
-      portfolioId: portfolio._id,
-      isPublished: true,
-    });
+  const content = await PortfolioContentModel.findOne({
+    portfolioId: portfolio._id,
+    isPublished: true,
+  });
 
   if (!content) {
-    throw new NotFoundException(
-      "Portfolio content not published"
-    );
+    throw new NotFoundException("Portfolio content not published");
   }
 
-  return content;
+  return {
+    _id: content._id,
+
+    portfolio: {
+      id: portfolio._id,
+      name: portfolio.name,
+      slug: portfolio.slug,
+    },
+
+    hero: content.hero,
+    expertiseSection: content.expertiseSection,
+    skillsSection: content.skillsSection,
+    experienceSection: content.experienceSection,
+    projectsSection: content.projectsSection,
+    educationSection: content.educationSection,
+    contactSection: content.contactSection,
+    seo: content.seo,
+    branding: content.branding,
+    footer: content.footer,
+    theme: content.theme,
+    navigation: content.navigation,
+    sectionConfig: content.sectionConfig,
+    socialLinks: content.socialLinks,
+    isPublished: content.isPublished,
+    publishedAt: content.publishedAt,
+    createdAt: content.createdAt,
+    updatedAt: content.updatedAt,
+  };
 };
 
 const publishPortfolioContent = async (
