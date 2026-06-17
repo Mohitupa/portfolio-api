@@ -2,7 +2,16 @@ import { Schema, model } from "mongoose";
 import { IPortfolioContent } from "./portfolio-content.types";
 
 const imageSchema = new Schema(
-  { url: { type: String, default: "" }, alt: String },
+  {
+    url: {
+      type: String,
+      default: ""
+    },
+    alt: {
+      type: String,
+      default: ""
+    }
+  },
   { _id: false }
 );
 
@@ -53,8 +62,14 @@ const expertiseCardSchema = new Schema(
 
 const expertiseSectionSchema = new Schema(
   {
-    subtitle: String,
-    title: String,
+    subtitle: {
+      type: String,
+      default: ""
+    },
+    title: {
+      type: String,
+      default: ""
+    },
     expertise: { type: [expertiseCardSchema], default: [] },
   },
   { _id: false }
@@ -72,8 +87,14 @@ const skillTagSchema = new Schema(
 
 const skillsSectionSchema = new Schema(
   {
-    subtitle: String,
-    title: String,
+    subtitle: {
+      type: String,
+      default: ""
+    },
+    title: {
+      type: String,
+      default: ""
+    },
     skills: { type: [skillSchema], default: [] },
     skillTags: { type: [skillTagSchema], default: [] },
   },
@@ -98,8 +119,14 @@ const experienceSchema = new Schema(
 
 const experienceSectionSchema = new Schema(
   {
-    subtitle: String,
-    title: String,
+    subtitle: {
+      type: String,
+      default: ""
+    },
+    title: {
+      type: String,
+      default: ""
+    },
     experience: { type: [experienceSchema], default: [] },
   },
   { _id: false }
@@ -108,12 +135,18 @@ const experienceSectionSchema = new Schema(
 const projectSchema = new Schema(
   {
     slug: String,
-    title: String,
+    title: {
+      type: String,
+      default: ""
+    },
     year: String,
     status: String,
     coverImage: imageSchema,
     gallery: { type: [imageSchema], default: [] },
-    description: String,
+    description: {
+      type: String,
+      default: ""
+    },
     features: { type: [String], default: [] },
     technologies: { type: [String], default: [] },
     liveUrl: String,
@@ -125,9 +158,18 @@ const projectSchema = new Schema(
 
 const projectsSectionSchema = new Schema(
   {
-    subtitle: String,
-    title: String,
-    description: String,
+    subtitle: {
+      type: String,
+      default: ""
+    },
+    title: {
+      type: String,
+      default: ""
+    },
+    description: {
+      type: String,
+      default: ""
+    },
     projects: { type: [projectSchema], default: [] },
   },
   { _id: false }
@@ -149,8 +191,14 @@ const educationSchema = new Schema(
 
 const educationSectionSchema = new Schema(
   {
-    subtitle: String,
-    title: String,
+    subtitle: {
+      type: String,
+      default: ""
+    },
+    title: {
+      type: String,
+      default: ""
+    },
     education: { type: [educationSchema], default: [] },
   },
   { _id: false }
@@ -168,8 +216,14 @@ const contactSchema = new Schema(
 
 const contactSectionSchema = new Schema(
   {
-    subtitle: String,
-    title: String,
+    subtitle: {
+      type: String,
+      default: ""
+    },
+    title: {
+      type: String,
+      default: ""
+    },
     description: String,
     contact: { type: contactSchema, default: {} },
   },

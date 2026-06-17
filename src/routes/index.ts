@@ -2,10 +2,7 @@ import { Router } from "express";
 
 import portfolioRoutes
 from "../modules/portfolio/portfolio.routes";
-import {
-  portfolioContentAdminRouter,
-  portfolioContentPublicRouter,
-} from "../modules/portfolio-content/portfolio-content.routes";
+import { PortfolioContentRoutes } from "../modules/portfolio-content/portfolio-content.routes";
 
 const router = Router();
 
@@ -17,7 +14,9 @@ router.get("/test", (_, res) => {
 });
 
 router.use(portfolioRoutes);
-router.use("/admin/portfolio-content", portfolioContentAdminRouter);
-router.use("/public/portfolios", portfolioContentPublicRouter);
+router.use(
+  "/portfolio-content",
+  PortfolioContentRoutes
+);
 
 export default router;

@@ -1,68 +1,29 @@
-// portfolio-content.routes.ts
 import { Router } from "express";
-import {
-  createPortfolioContent,
-  getPortfolioContentByPortfolioId,
-  updatePortfolioContent,
-  updateSection,
-  publishPortfolioContent,
-  unpublishPortfolioContent,
-  getPublicPortfolioBySlug,
-} from "./portfolio-content.controller";
+import { PortfolioContentController } from "./portfolio-content.controller";
+import { PortfolioContentValidation } from "./portfolio-content.validation";
 import validateRequest from "../../middlewares/validateRequest";
-import {
-  createPortfolioContentSchema,
-  getPortfolioContentSchema,
-  updatePortfolioContentSchema,
-  updateSectionSchema,
-  publishPortfolioContentSchema,
-  getPublicPortfolioBySlugSchema,
-} from "./portfolio-content.validation";
 
-// ── Admin routes  /api/admin/portfolio-content ────────────────
-export const portfolioContentAdminRouter = Router();
+const router = Router();
 
-portfolioContentAdminRouter.post(
-  "/:portfolioId",
-  validateRequest(createPortfolioContentSchema),
-  createPortfolioContent
+router.post(
+  "/",
+  validateRequest(
+    PortfolioContentValidation.createPortfolioContentSchema
+  ),
+  PortfolioContentController.createPortfolioContent
 );
 
-portfolioContentAdminRouter.get(
-  "/:portfolioId",
-  validateRequest(getPortfolioContentSchema),
-  getPortfolioContentByPortfolioId
-);
-
-portfolioContentAdminRouter.patch(
-  "/:portfolioId",
-  validateRequest(updatePortfolioContentSchema),
-  updatePortfolioContent
-);
-
-portfolioContentAdminRouter.patch(
-  "/:portfolioId/section/:section",
-  validateRequest(updateSectionSchema),
-  updateSection
-);
-
-portfolioContentAdminRouter.patch(
-  "/:portfolioId/publish",
-  validateRequest(publishPortfolioContentSchema),
-  publishPortfolioContent
-);
-
-portfolioContentAdminRouter.patch(
-  "/:portfolioId/unpublish",
-  validateRequest(publishPortfolioContentSchema),
-  unpublishPortfolioContent
-);
-
-// ── Public routes  /api/public/portfolios ─────────────────────
-export const portfolioContentPublicRouter = Router();
-
-portfolioContentPublicRouter.get(
+router.get(
   "/:slug",
-  validateRequest(getPublicPortfolioBySlugSchema),
-  getPublicPortfolioBySlug
+  PortfolioContentController.getPublicPortfolio
 );
+
+router.patch(
+  "/:portfolioId",
+  validateRequest(
+    PortfolioContentValidation.updatePortfolioContentSchema
+  ),
+  PortfolioContentController.updatePortfolioContent
+);
+
+export const PortfolioContentRoutes = router;
