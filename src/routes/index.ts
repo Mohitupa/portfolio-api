@@ -4,6 +4,8 @@ import portfolioRoutes
 from "../modules/portfolio/portfolio.routes";
 import { PortfolioContentRoutes } from "../modules/portfolio-content/portfolio-content.routes";
 import { AuthRoutes } from "../modules/auth/auth.routes";
+import { DashboardRoutes } from "../modules/dashboard/dashboard.routes";
+import { MediaRoutes } from "../modules/media/media.routes";
 
 const router = Router();
 
@@ -23,6 +25,16 @@ router.use(
 router.use(
   "/auth",
   AuthRoutes
+);
+
+router.use(
+  "/dashboard",
+  DashboardRoutes
+);
+
+router.use(
+  "/media",
+  MediaRoutes
 );
 
 export default router;
