@@ -6,6 +6,7 @@ import { PortfolioContentRoutes } from "../modules/portfolio-content/portfolio-c
 import { AuthRoutes } from "../modules/auth/auth.routes";
 import { DashboardRoutes } from "../modules/dashboard/dashboard.routes";
 import { MediaRoutes } from "../modules/media/media.routes";
+import { ContactMessageRoutes } from "../modules/contact-message/contact-message.routes";
 
 const router = Router();
 
@@ -35,6 +36,11 @@ router.use(
 router.use(
   "/media",
   MediaRoutes
+);
+
+router.use(
+  "/",
+  ContactMessageRoutes
 );
 
 export default router;
