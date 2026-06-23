@@ -54,17 +54,14 @@ const login = catchAsync(
 
 const refreshToken = catchAsync(
   async (req, res) => {
-
     const refreshToken = req.cookies?.refreshToken;
 
     if (!refreshToken) {
-
       res.status(401).json({
         success: false,
         message:
           "Refresh token not found",
       });
-
       return;
     }
 
