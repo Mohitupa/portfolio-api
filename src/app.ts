@@ -8,6 +8,7 @@ import path from "path";
 
 const app = express();
 
+app.disable("etag");
 app.use(
   cors({
     origin: true,
