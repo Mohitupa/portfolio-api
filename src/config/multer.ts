@@ -4,11 +4,17 @@ import cloudinary from "./cloudinary";
 
 const storage = new CloudinaryStorage({
   cloudinary,
-  params: async (req, file) => ({
-    folder: "portfolio-cms",
-    public_id: `${Date.now()}`,
-    resource_type: "auto",
-  }),
+  params: async (req, file) => {
+    const isPdf =
+      file.mimetype === "application/pdf";
+
+    return {
+      folder: "portfolio-cms",
+      resource_type: isPdf
+        ? "raw"
+        : "image",
+    };
+  },
 });
 
 export const upload = multer({
