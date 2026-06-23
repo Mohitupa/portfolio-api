@@ -8,23 +8,10 @@ import path from "path";
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:4200",
-  "https://portfolio-woad-five-18.vercel.app",
-];
-
 app.use(
   cors({
+    origin: true,
     credentials: true,
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-
-      callback(new Error("Not allowed by CORS"));
-    },
   })
 );
 app.use(express.json());
