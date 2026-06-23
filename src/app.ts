@@ -38,6 +38,7 @@ console.log(
 );
 
 app.use((req, _res, next) => {
+  console.log("Origin:", req.headers.origin);
   console.log(req.method, req.originalUrl);
   next();
 });
