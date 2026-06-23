@@ -4,6 +4,8 @@ import { MediaService } from "./media.service";
 
 const uploadFile =
   catchAsync(async (req, res) => {
+    console.log("------------");
+    
 
     const result =
       await MediaService.createMedia(
