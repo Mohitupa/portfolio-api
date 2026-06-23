@@ -27,7 +27,7 @@ export const auth = (
       const decoded =
         jwt.verify(
           token,
-          config.jwtSecret
+          config.jwtAccessSecret
         ) as {
           userId: string;
           email: string;

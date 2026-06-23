@@ -1,8 +1,11 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import {
+  createAccessToken,
+  createRefreshToken,
+  verifyRefreshToken
+} from "../../utils/jwt";
 
 import { AdminUserModel } from "../admin-user/admin-user.model";
-import config from "../../config";
 
 const login = async (
   email: string,
@@ -32,27 +35,68 @@ const login = async (
     );
   }
 
-  const token =
-    jwt.sign(
-      {
-        userId: user._id,
-        email: user.email,
-        role: user.role,
-      },
-      config.jwtSecret,
-      {
-        expiresIn: "7d",
-      }
+  const jwtPayload = {
+    userId: user._id,
+    email: user.email,
+    role: user.role,
+  };
+
+  const accessToken =
+    createAccessToken(
+      jwtPayload
+    );
+
+  const refreshToken =
+    createRefreshToken(
+      jwtPayload
     );
 
   return {
-    token,
+    accessToken,
+    refreshToken,
+
     user: {
       id: user._id,
       name: user.name,
       email: user.email,
       role: user.role,
     },
+  };
+};
+
+const refreshToken = async (
+  token: string
+) => {
+
+  const decoded =
+    verifyRefreshToken(
+      token
+    ) as {
+      userId: string;
+      email: string;
+      role: string;
+    };
+
+  const user =
+    await AdminUserModel.findById(
+      decoded.userId
+    );
+
+  if (!user) {
+    throw new Error(
+      "User not found"
+    );
+  }
+
+  const accessToken =
+    createAccessToken({
+      userId: user._id,
+      email: user.email,
+      role: user.role,
+    });
+
+  return {
+    accessToken,
   };
 };
 
@@ -73,7 +117,13 @@ const getMe = async (
   return user;
 };
 
+const logout = async () => {
+  return null;
+};
+
 export const AuthService = {
   login,
   getMe,
+  refreshToken,
+  logout,
 };

@@ -15,6 +15,16 @@ router.post(
   AuthController.login
 );
 
+router.post(
+  "/refresh-token",
+  AuthController.refreshToken
+);
+
+router.post(
+  "/logout",
+  AuthController.logout
+);
+
 router.get(
   "/me",
   auth(
