@@ -24,7 +24,7 @@ const login = catchAsync(
           config.nodeEnv ===
           "production",
 
-        sameSite: "strict",
+        sameSite: "none",
 
         maxAge:
           7 *
@@ -108,7 +108,7 @@ const logout = catchAsync(
           "production",
 
         sameSite:
-          "strict",
+          "none",
       }
     );
 
