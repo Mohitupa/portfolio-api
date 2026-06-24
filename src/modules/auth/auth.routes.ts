@@ -4,11 +4,13 @@ import { AuthController } from "./auth.controller";
 import validateRequest  from "../../middlewares/validateRequest";
 import { AuthValidation } from "./auth.validation";
 import { auth } from "../../middlewares/auth";
+import { authLimiter } from "../../middlewares/authRateLimiter";
 
 const router = Router();
 
 router.post(
   "/login",
+  authLimiter,
   validateRequest(
     AuthValidation.loginSchema
   ),

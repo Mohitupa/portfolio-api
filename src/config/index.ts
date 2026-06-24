@@ -20,6 +20,12 @@ const config = {
 
   jwtRefreshExpiresIn:
     process.env.JWT_REFRESH_EXPIRES_IN as string,
+
+  frontendUrl:
+    process.env.FRONTEND_URL,
+
+  productionFrontendUrl:
+    process.env.PRODUCTION_FRONTEND_URL,
 };
 
 export default config;
