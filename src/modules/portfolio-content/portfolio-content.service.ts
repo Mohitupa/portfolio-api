@@ -50,11 +50,12 @@ const createPortfolioContent = async (
 
 const getPortfolioContentByPortfolioId =
   async (portfolioId: string) => {
-
     const result =
-      await PortfolioContentModel.findOne({
-        portfolioId,
-      }).populate("portfolioId");
+      await PortfolioContentModel
+        .findOne({
+          portfolioId,
+        })
+        .populate("portfolioId");
 
     if (!result) {
       throw new NotFoundException(
@@ -62,7 +63,40 @@ const getPortfolioContentByPortfolioId =
       );
     }
 
-    return result;
+    const portfolio =
+      result.portfolioId as any;
+
+    return {
+      _id: result._id,
+
+      portfolio: {
+        id: portfolio._id,
+        name: portfolio.name,
+        slug: portfolio.slug,
+        isActive: portfolio.isActive,
+      },
+
+      hero: result.hero,
+      expertiseSection: result.expertiseSection,
+      skillsSection: result.skillsSection,
+      experienceSection: result.experienceSection,
+      projectsSection: result.projectsSection,
+      educationSection: result.educationSection,
+      contactSection: result.contactSection,
+      socialLinks: result.socialLinks,
+      navigation: result.navigation,
+      branding: result.branding,
+      footer: result.footer,
+      seo: result.seo,
+      theme: result.theme,
+      sectionConfig: result.sectionConfig,
+
+      isPublished: result.isPublished,
+      publishedAt: result.publishedAt,
+
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt,
+    };
   };
 
 

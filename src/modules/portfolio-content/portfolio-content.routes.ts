@@ -16,6 +16,11 @@ router.post(
 );
 
 router.get(
+  "/:portfolioId/edit",
+  PortfolioContentController.getPortfolioContent
+);
+
+router.get(
   "/:slug",
   PortfolioContentController.getPublicPortfolio
 );
