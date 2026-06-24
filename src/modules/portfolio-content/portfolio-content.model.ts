@@ -3,9 +3,10 @@ import { IPortfolioContent } from "./portfolio-content.types";
 
 const imageSchema = new Schema(
   {
-    url: {
-      type: String,
-      default: ""
+    mediaId: {
+      type: Schema.Types.ObjectId,
+      ref: "Media",
+      default: null,
     },
     alt: {
       type: String,
@@ -266,7 +267,11 @@ const themeSchema = new Schema(
     secondaryColor: String,
     backgroundColor: String,
     logo: imageSchema,
-    resumeFile: String,
+    resumeFile: {
+      type: Schema.Types.ObjectId,
+      ref: "Media",
+      default: null
+    }
   },
   { _id: false }
 );

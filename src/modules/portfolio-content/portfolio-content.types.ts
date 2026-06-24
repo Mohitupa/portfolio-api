@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 
 export interface IImage {
-  url: string;
+  mediaId: Types.ObjectId;
   alt?: string;
 }
 
@@ -194,7 +194,7 @@ export interface ITheme {
   secondaryColor: string;
   backgroundColor: string;
   logo?: IImage;
-  resumeFile?: string;
+  resumeFile?: Types.ObjectId;
 }
 
 export interface ISectionConfig {

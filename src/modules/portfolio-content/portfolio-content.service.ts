@@ -4,95 +4,95 @@ import { IPortfolioContent } from "./portfolio-content.types";
 import Portfolio from "../portfolio/portfolio.model";
 
 export class NotFoundException extends Error {
-    constructor(message: string) {
-        super(message);
-        this.name = "NotFoundException";
-    }
+  constructor(message: string) {
+    super(message);
+    this.name = "NotFoundException";
+  }
 }
 
 export class ConflictException extends Error {
-    constructor(message: string) {
-        super(message);
-        this.name = "ConflictException";
-    }
+  constructor(message: string) {
+    super(message);
+    this.name = "ConflictException";
+  }
 }
 
 const createPortfolioContent = async (
-    payload: Partial<IPortfolioContent>
+  payload: Partial<IPortfolioContent>
 ) => {
 
-    const portfolio = await Portfolio.findById(
-        payload.portfolioId
+  const portfolio = await Portfolio.findById(
+    payload.portfolioId
+  );
+
+  if (!portfolio) {
+    throw new NotFoundException(
+      "Portfolio not found"
     );
+  }
 
-    if (!portfolio) {
-        throw new NotFoundException(
-            "Portfolio not found"
-        );
-    }
+  const existingContent =
+    await PortfolioContentModel.findOne({
+      portfolioId: payload.portfolioId,
+    });
 
-    const existingContent =
-        await PortfolioContentModel.findOne({
-            portfolioId: payload.portfolioId,
-        });
+  if (existingContent) {
+    throw new ConflictException(
+      "Portfolio content already exists"
+    );
+  }
 
-    if (existingContent) {
-        throw new ConflictException(
-            "Portfolio content already exists"
-        );
-    }
+  const result =
+    await PortfolioContentModel.create(payload);
 
-    const result =
-        await PortfolioContentModel.create(payload);
-
-    return result;
+  return result;
 };
 
 const getPortfolioContentByPortfolioId =
-    async (portfolioId: string) => {
+  async (portfolioId: string) => {
 
-        const result =
-            await PortfolioContentModel.findOne({
-                portfolioId,
-            }).populate("portfolioId");
+    const result =
+      await PortfolioContentModel.findOne({
+        portfolioId,
+      }).populate("portfolioId");
 
-        if (!result) {
-            throw new NotFoundException(
-                "Portfolio content not found"
-            );
-        }
+    if (!result) {
+      throw new NotFoundException(
+        "Portfolio content not found"
+      );
+    }
 
-        return result;
-    };
+    return result;
+  };
 
 
 const updatePortfolioContent = async (
-    portfolioId: string,
-    payload: Partial<IPortfolioContent>
+  portfolioId: string,
+  payload: Partial<IPortfolioContent>
 ) => {
 
-    const existingContent =
-        await PortfolioContentModel.findOne({
-            portfolioId,
-        });
+  const existingContent =
+    await PortfolioContentModel.findOne({
+      portfolioId,
+    });
 
-    if (!existingContent) {
-        throw new NotFoundException(
-            "Portfolio content not found"
-        );
-    }
+  if (!existingContent) {
+    throw new NotFoundException(
+      "Portfolio content not found"
+    );
+  }
 
-    const result =
-        await PortfolioContentModel.findOneAndUpdate(
-            { portfolioId },
-            payload,
-            {
-                new: true,
-                runValidators: true,
-            }
-        );
+  const result =
+    await PortfolioContentModel.findOneAndUpdate(
+      { portfolioId },
+      payload,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
 
-    return result;
+  return result;
 };
 
 const getPublicPortfolioBySlug = async (slug: string) => {
@@ -108,7 +108,25 @@ const getPublicPortfolioBySlug = async (slug: string) => {
   const content = await PortfolioContentModel.findOne({
     portfolioId: portfolio._id,
     isPublished: true,
-  });
+  }).populate(
+    "hero.profileImage.mediaId", 'originalName fileName filePath mimeType size'
+  ).populate(
+    "experienceSection.experience.companyLogo.mediaId", "originalName fileName filePath mimeType size"
+  ).populate(
+    "educationSection.education.institutionLogo.mediaId", "originalName fileName filePath mimeType size"
+  ).populate(
+    "projectsSection.projects.coverImage.mediaId", "originalName fileName filePath mimeType size"
+  ).populate(
+    "branding.logoImage.mediaId", "originalName fileName filePath mimeType size"
+  ).populate(
+    "branding.favicon.mediaId", "originalName fileName filePath mimeType size"
+  ).populate(
+    "seo.ogImage.mediaId", "originalName fileName filePath mimeType size"
+  ).populate(
+    "theme.logo.mediaId", "originalName fileName filePath mimeType size"
+  ).populate(
+    "theme.resumeFile", "originalName fileName filePath mimeType size"
+  );
 
   if (!content) {
     throw new NotFoundException("Portfolio content not published");

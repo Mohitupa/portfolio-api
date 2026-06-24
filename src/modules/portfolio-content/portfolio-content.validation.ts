@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const imageValidationSchema = z.object({
-  url: z.string(),
+  mediaId: z.string(),
   alt: z.string().optional(),
 });
 
