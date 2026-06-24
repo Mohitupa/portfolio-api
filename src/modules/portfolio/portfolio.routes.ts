@@ -30,4 +30,10 @@ router.get(
   portfolioController.getPortfolioBySlug
 );
 
+router.delete(
+  "/portfolios/:id",
+  auth("SUPER_ADMIN"),
+  portfolioController.deletePortfolio
+);
+
 export default router;

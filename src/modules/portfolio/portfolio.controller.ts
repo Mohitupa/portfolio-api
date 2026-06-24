@@ -53,3 +53,17 @@ export const getPortfolioBySlug = async (
     data: portfolio,
   });
 };
+
+export const deletePortfolio =
+  async (req: Request, res: Response) => {
+
+    await portfolioService.deletePortfolio(
+      req.params.id as string
+    );
+
+    res.status(200).json({
+      success: true,
+      message:
+        "Portfolio deleted successfully",
+    });
+  };

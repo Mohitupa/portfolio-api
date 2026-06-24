@@ -1,3 +1,4 @@
+import { PortfolioContentModel } from "../portfolio-content/portfolio-content.model";
 import Portfolio from "./portfolio.model";
 
 export const createPortfolio = async (
@@ -20,4 +21,30 @@ export const getPortfolioBySlug = async (
     slug,
     isActive: true,
   });
+};
+
+export const deletePortfolio = async (
+  portfolioId: string
+) => {
+
+  const portfolio =
+    await Portfolio.findById(
+      portfolioId
+    );
+
+  if (!portfolio) {
+    throw new Error(
+      "Portfolio not found"
+    );
+  }
+
+  await PortfolioContentModel.deleteOne({
+    portfolioId,
+  });
+
+  await Portfolio.findByIdAndDelete(
+    portfolioId
+  );
+
+  return null;
 };
