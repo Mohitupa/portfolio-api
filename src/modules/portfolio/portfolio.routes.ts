@@ -30,6 +30,12 @@ router.get(
   portfolioController.getPortfolioBySlug
 );
 
+router.patch(
+  "/portfolios/:id/status",
+  auth("SUPER_ADMIN"),
+  portfolioController.togglePortfolioStatus
+);
+
 router.delete(
   "/portfolios/:id",
   auth("SUPER_ADMIN"),

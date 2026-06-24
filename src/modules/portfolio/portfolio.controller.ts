@@ -67,3 +67,19 @@ export const deletePortfolio =
         "Portfolio deleted successfully",
     });
   };
+
+export const togglePortfolioStatus =
+  async (req: Request , res: Response) => {
+
+    const result =
+      await portfolioService.togglePortfolioStatus(
+        req.params.id as string,
+        req.body.isActive as boolean
+      );
+
+    res.status(200).json({
+      success: true,
+      message: "Portfolio status updated",
+      data: result,
+    });
+  };

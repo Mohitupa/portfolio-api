@@ -48,3 +48,17 @@ export const deletePortfolio = async (
 
   return null;
 };
+
+export const togglePortfolioStatus = async (
+  id: string,
+  isActive: boolean
+) => {
+
+  return Portfolio.findByIdAndUpdate(
+    id,
+    { isActive },
+    {
+      new: true,
+    }
+  );
+};
