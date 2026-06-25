@@ -8,6 +8,10 @@ import { DashboardRoutes } from "../modules/dashboard/dashboard.routes";
 import { MediaRoutes } from "../modules/media/media.routes";
 import { ContactMessageRoutes } from "../modules/contact-message/contact-message.routes";
 import { AdminUserRoutes } from "../modules/admin-user/admin-user.routes";
+import { PermissionRoutes } from "../modules/permission/permission.route";
+import { RoleRoutes } from "../modules/role/role.route";
+import { RolePermissionRoutes } from "../modules/role-permission/role-permission.route";
+import { UserRoleRoutes } from "../modules/user-role/user-role.route";
 
 const router = Router();
 
@@ -37,6 +41,26 @@ router.use(
 router.use(
   "/admin-users",
   AdminUserRoutes
+);
+
+router.use(
+  "/permissions",
+  PermissionRoutes
+);
+
+router.use(
+  "/roles",
+  RoleRoutes
+);
+
+router.use(
+  "/role-permissions",
+  RolePermissionRoutes
+);
+
+router.use(
+  "/user-roles",
+  UserRoleRoutes
 );
 
 router.use(
