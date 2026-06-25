@@ -7,6 +7,7 @@ import { AuthRoutes } from "../modules/auth/auth.routes";
 import { DashboardRoutes } from "../modules/dashboard/dashboard.routes";
 import { MediaRoutes } from "../modules/media/media.routes";
 import { ContactMessageRoutes } from "../modules/contact-message/contact-message.routes";
+import { AdminUserRoutes } from "../modules/admin-user/admin-user.routes";
 
 const router = Router();
 
@@ -31,6 +32,11 @@ router.use(
 router.use(
   "/dashboard",
   DashboardRoutes
+);
+
+router.use(
+  "/admin-users",
+  AdminUserRoutes
 );
 
 router.use(

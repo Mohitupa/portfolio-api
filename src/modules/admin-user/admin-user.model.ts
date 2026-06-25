@@ -7,6 +7,7 @@ const adminUserSchema =
       name: {
         type: String,
         required: true,
+        trim: true,
       },
 
       email: {
@@ -32,9 +33,23 @@ const adminUserSchema =
         default: "ADMIN",
       },
 
+      permissions: {
+        type: [String],
+        default: [],
+      },
+
       isActive: {
         type: Boolean,
         default: true,
+      },
+
+      lastLogin: {
+        type: Date,
+      },
+
+      createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: "AdminUser",
       },
     },
     {

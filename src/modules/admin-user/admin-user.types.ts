@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import { Document, Types } from "mongoose";
 
 export type AdminRole =
   | "SUPER_ADMIN"
@@ -13,7 +13,13 @@ export interface IAdminUser extends Document {
 
   role: AdminRole;
 
+  permissions: string[];
+
   isActive: boolean;
+
+  lastLogin?: Date;
+
+  createdBy?: Types.ObjectId;
 
   createdAt?: Date;
 
