@@ -32,7 +32,7 @@ app.use(
         return callback(null, true);
       }
       return callback(
-        new Error("CORS not allowed")
+        new Error("CORS not allowed.")
       );
     },
     credentials: true,
