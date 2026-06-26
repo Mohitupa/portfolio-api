@@ -8,26 +8,26 @@ const router = Router();
 
 router.post(
   "/upload",
-  auth("SUPER_ADMIN"),
+  auth("media.upload"),
   upload.single("file"),
   MediaController.uploadFile
 );
 
 router.get(
   "/",
-  auth("SUPER_ADMIN"),
+  auth("media.read"),
   MediaController.getAllMedia
 );
 
 router.get(
   "/:id",
-  auth("SUPER_ADMIN"),
+  auth("media.read"),
   MediaController.getMediaById
 );
 
 router.delete(
   "/:id",
-  auth("SUPER_ADMIN"),
+  auth("media.delete"),
   MediaController.deleteMedia
 );
 

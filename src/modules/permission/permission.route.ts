@@ -10,19 +10,19 @@ const router = Router();
 
 router.get(
   "/",
-  auth("SUPER_ADMIN"),
+  auth("permission.read"),
   PermissionController.getPermissions
 );
 
 router.get(
   "/:id",
-  auth("SUPER_ADMIN"),
+  auth("permission.read"),
   PermissionController.getPermission
 );
 
 router.post(
   "/",
-  auth("SUPER_ADMIN"),
+  auth("permission.create"),
   validateRequest(
     PermissionValidation.createPermissionSchema
   ),
@@ -31,7 +31,7 @@ router.post(
 
 router.patch(
   "/:id",
-  auth("SUPER_ADMIN"),
+  auth("permission.update"),
   validateRequest(
     PermissionValidation.updatePermissionSchema
   ),
@@ -40,7 +40,7 @@ router.patch(
 
 router.delete(
   "/:id",
-  auth("SUPER_ADMIN"),
+  auth("permission.delete"),
   PermissionController.deletePermission
 );
 

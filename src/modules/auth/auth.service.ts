@@ -6,6 +6,7 @@ import {
 } from "../../utils/jwt";
 
 import { AdminUserModel } from "../admin-user/admin-user.model";
+import { getUserRolesAndPermissions } from "../../utils/auth.utils";
 
 const login = async (
   email: string,
@@ -35,10 +36,26 @@ const login = async (
     );
   }
 
+  const {
+
+    roles,
+
+    permissions
+
+  } =
+    await getUserRolesAndPermissions(
+      user._id.toString()
+    );
+
   const jwtPayload = {
+
     userId: user._id,
+
     email: user.email,
-    role: user.role,
+
+    roles,
+
+    permissions,
   };
 
   const accessToken =
@@ -56,11 +73,17 @@ const login = async (
     refreshToken,
 
     user: {
+
       id: user._id,
+
       name: user.name,
+
       email: user.email,
-      role: user.role,
-    },
+
+      roles,
+
+      permissions,
+    }
   };
 };
 
@@ -69,12 +92,11 @@ const refreshToken = async (
 ) => {
 
   const decoded =
-    verifyRefreshToken(
-      token
-    ) as {
+    verifyRefreshToken(token) as {
       userId: string;
       email: string;
-      role: string;
+      roles: string[];
+      permissions: string[];
     };
 
   const user =
@@ -88,11 +110,20 @@ const refreshToken = async (
     );
   }
 
+  const {
+    roles,
+    permissions,
+  } =
+    await getUserRolesAndPermissions(
+      user._id.toString()
+    );
+
   const accessToken =
     createAccessToken({
       userId: user._id,
       email: user.email,
-      role: user.role,
+      roles,
+      permissions,
     });
 
   return {
@@ -114,7 +145,24 @@ const getMe = async (
     );
   }
 
-  return user;
+  const {
+    roles,
+    permissions,
+  } =
+    await getUserRolesAndPermissions(
+      user._id.toString()
+    );
+
+  return {
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    isActive: user.isActive,
+    roles,
+    permissions,
+    createdAt: user.createdAt,
+    updatedAt: user.updatedAt,
+  };
 };
 
 const logout = async () => {

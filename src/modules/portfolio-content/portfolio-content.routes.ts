@@ -8,7 +8,7 @@ const router = Router();
 
 router.post(
   "/",
-  auth("SUPER_ADMIN"),
+  auth("portfolio-content.create"),
   validateRequest(
     PortfolioContentValidation.createPortfolioContentSchema
   ),
@@ -27,7 +27,7 @@ router.get(
 
 router.patch(
   "/:portfolioId",
-  auth("SUPER_ADMIN"),
+  auth("portfolio-content.update"),
   validateRequest(
     PortfolioContentValidation.updatePortfolioContentSchema
   ),
@@ -36,13 +36,13 @@ router.patch(
 
 router.patch(
   "/:portfolioId/publish",
-  auth("SUPER_ADMIN"),
+  auth("portfolio-content.publish"),
   PortfolioContentController.publishPortfolioContent
 );
 
 router.patch(
   "/:portfolioId/unpublish",
-  auth("SUPER_ADMIN"),
+  auth("portfolio-content.unpublish"),
   PortfolioContentController.unpublishPortfolioContent
 );
 

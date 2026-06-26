@@ -1,10 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-
 import config from "../config";
 
 export const auth = (
-  ...requiredRoles: string[]
+  ...requiredPermissions: string[]
 ) => {
 
   return (
@@ -13,7 +12,8 @@ export const auth = (
     next: NextFunction
   ) => {
 
-    const token = req.headers.authorization?.split(" ")[1];
+    const token =
+      req.headers.authorization?.split(" ")[1];
 
     if (!token) {
       return res.status(401).json({
@@ -31,15 +31,16 @@ export const auth = (
         ) as {
           userId: string;
           email: string;
-          role: string;
+          roles: string[];
+          permissions: string[];
         };
 
       req.user = decoded;
 
       if (
-        requiredRoles.length &&
-        !requiredRoles.includes(
-          decoded.role
+        requiredPermissions.length &&
+        !requiredPermissions.every(permission =>
+          decoded.permissions.includes(permission)
         )
       ) {
         return res.status(403).json({
@@ -51,10 +52,12 @@ export const auth = (
       next();
 
     } catch {
+
       return res.status(401).json({
         success: false,
         message: "Invalid token",
       });
+
     }
   };
 };

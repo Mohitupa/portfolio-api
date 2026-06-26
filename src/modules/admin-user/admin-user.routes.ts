@@ -10,19 +10,19 @@ const router = Router();
 
 router.get(
   "/",
-  auth("SUPER_ADMIN"),
+  auth("admin.read"),
   AdminUserController.getAdminUsers
 );
 
 router.get(
   "/:id",
-  auth("SUPER_ADMIN"),
+  auth("admin.read"),
   AdminUserController.getAdminUser
 );
 
 router.post(
   "/",
-  auth("SUPER_ADMIN"),
+  auth("admin.create"),
   validateRequest(
     AdminUserValidation.createAdminSchema
   ),
@@ -31,7 +31,7 @@ router.post(
 
 router.patch(
   "/:id",
-  auth("SUPER_ADMIN"),
+  auth("admin.update"),
   validateRequest(
     AdminUserValidation.updateAdminSchema
   ),
@@ -40,7 +40,7 @@ router.patch(
 
 router.patch(
   "/:id/status",
-  auth("SUPER_ADMIN"),
+  auth("admin.status"),
   validateRequest(
     AdminUserValidation.updateStatusSchema
   ),
@@ -49,7 +49,7 @@ router.patch(
 
 router.patch(
   "/:id/password",
-  auth("SUPER_ADMIN"),
+  auth("admin.password"),
   validateRequest(
     AdminUserValidation.changePasswordSchema
   ),
@@ -58,7 +58,7 @@ router.patch(
 
 router.delete(
   "/:id",
-  auth("SUPER_ADMIN"),
+  auth("admin.delete"),
   AdminUserController.deleteAdminUser
 );
 

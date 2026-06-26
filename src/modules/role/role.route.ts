@@ -9,19 +9,19 @@ const router = Router();
 
 router.get(
   "/",
-  auth("SUPER_ADMIN"),
+  auth("role.read"),
   RoleController.getRoles
 );
 
 router.get(
   "/:id",
-  auth("SUPER_ADMIN"),
+  auth("role.read"),
   RoleController.getRole
 );
 
 router.post(
   "/",
-  auth("SUPER_ADMIN"),
+  auth("role.create"),
   validateRequest(
     RoleValidation.createRoleSchema
   ),
@@ -30,7 +30,7 @@ router.post(
 
 router.patch(
   "/:id",
-  auth("SUPER_ADMIN"),
+  auth("role.update"),
   validateRequest(
     RoleValidation.updateRoleSchema
   ),
@@ -39,7 +39,7 @@ router.patch(
 
 router.delete(
   "/:id",
-  auth("SUPER_ADMIN"),
+  auth("role.delete"),
   RoleController.deleteRole
 );
 

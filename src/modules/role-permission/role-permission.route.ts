@@ -10,13 +10,13 @@ const router = Router();
 
 router.get(
   "/:roleId",
-  auth("SUPER_ADMIN"),
+  auth("role-permission.read"),
   RolePermissionController.getRolePermissions
 );
 
 router.put(
   "/:roleId",
-  auth("SUPER_ADMIN"),
+  auth("role-permission.update"),
   validateRequest(
     RolePermissionValidation.assignPermissionsSchema
   ),

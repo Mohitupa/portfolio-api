@@ -7,7 +7,7 @@ const router = Router();
 
 router.get(
   "/stats",
-  auth("SUPER_ADMIN"),
+  auth("dashboard.read"),
   DashboardController.getDashboardStats
 );
 

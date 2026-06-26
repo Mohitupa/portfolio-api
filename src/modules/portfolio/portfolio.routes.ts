@@ -15,7 +15,7 @@ const router = Router();
 
 router.post(
   "/portfolios",
-  auth("SUPER_ADMIN"),
+  auth("portfolio.create"),
   validateRequest(createPortfolioSchema),
   portfolioController.createPortfolio
 );
@@ -32,13 +32,13 @@ router.get(
 
 router.patch(
   "/portfolios/:id/status",
-  auth("SUPER_ADMIN"),
+  auth("portfolio.update"),
   portfolioController.togglePortfolioStatus
 );
 
 router.delete(
   "/portfolios/:id",
-  auth("SUPER_ADMIN"),
+  auth("portfolio.delete"),
   portfolioController.deletePortfolio
 );
 

@@ -19,30 +19,29 @@ router.post(
   ContactMessageController.createMessage
 );
 
-
 // ADMIN APIs
 
 router.get(
   "/contact-messages",
-  auth("SUPER_ADMIN"),
+  auth("contact.read"),
   ContactMessageController.getAllMessages
 );
 
 router.get(
   "/contact-messages/:id",
-  auth("SUPER_ADMIN"),
+  auth("contact.read"),
   ContactMessageController.getMessageById
 );
 
 router.patch(
   "/contact-messages/:id/read",
-  auth("SUPER_ADMIN"),
+  auth("contact.update"),
   ContactMessageController.markAsRead
 );
 
 router.delete(
   "/contact-messages/:id",
-  auth("SUPER_ADMIN"),
+  auth("contact.delete"),
   ContactMessageController.deleteMessage
 );
 

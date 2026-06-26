@@ -3,6 +3,8 @@ import { Document } from "mongoose";
 export interface IPermission extends Document {
   name: string;
 
+  key: string;
+
   displayName: string;
 
   module: string;
