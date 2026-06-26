@@ -29,10 +29,7 @@ router.post(
 
 router.get(
   "/me",
-  auth(
-    "SUPER_ADMIN",
-    "ADMIN"
-  ),
+  auth(),
   AuthController.getMe
 );
 
